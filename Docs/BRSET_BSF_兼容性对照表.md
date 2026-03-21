@@ -1,7 +1,11 @@
 # BRSET与BSF格式兼容性对照表
 
-> 更新日期：2026-03-21
+> 更新日期：2026-03-22
 > 转换器版本：FilterPresetConverter 1.4
+
+**格式说明：**
+- **BRSET**: BeatSpider 下载器使用的预设格式
+- **BSF**: BSIMM 谱面管理工具使用的预设格式
 
 ---
 
