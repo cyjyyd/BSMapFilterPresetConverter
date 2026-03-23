@@ -817,13 +817,23 @@ namespace FilterPresetConverter.Services
                 {
                     // 自定义Mod
                     // requireMod=true表示需求组件，使用CustomMod类型
-                    // requireMod=false表示排除组件，使用ExcludeCustomMod类型
+                    // requireMod=false表示排除组件，使用ExcludeCustomMod类型，并使用ExcludeModValue
                     var customModType = requireMod ? FilterConditionType.CustomMod : FilterConditionType.ExcludeCustomMod;
 
                     // 检查是否应该跳过
                     if (skipTypes?.Contains(customModType) == true) continue;
 
-                    conditions.Add(new FilterCondition(customModType, trimmedMod));
+                    if (requireMod)
+                    {
+                        // 需求组件：使用字符串
+                        conditions.Add(new FilterCondition(customModType, trimmedMod));
+                    }
+                    else
+                    {
+                        // 排除组件：使用ExcludeModValue，BRSET默认严格排除
+                        var excludeValue = new ExcludeModValue(trimmedMod, strict: true);
+                        conditions.Add(new FilterCondition(customModType, excludeValue));
+                    }
                 }
             }
         }

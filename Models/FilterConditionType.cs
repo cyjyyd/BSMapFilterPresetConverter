@@ -150,7 +150,8 @@ namespace FilterPresetConverter.Models
         Date,
         NumberWithSort,
         Range,          // 范围输入(min-max)
-        SearchQuery     // 搜索关键词+类型
+        SearchQuery,    // 搜索关键词+类型
+        ExcludeMod      // 排除mod+严格模式选项
     }
 
     /// <summary>
@@ -268,6 +269,32 @@ namespace FilterPresetConverter.Models
     }
 
     /// <summary>
+    /// 排除Mod值（包含Mod名称和严格模式选项）
+    /// </summary>
+    public class ExcludeModValue
+    {
+        public string ModName { get; set; } = "";
+        public bool Strict { get; set; } = false;
+
+        public ExcludeModValue() { }
+
+        public ExcludeModValue(string modName, bool strict = false)
+        {
+            ModName = modName ?? "";
+            Strict = strict;
+        }
+
+        public bool HasValue => !string.IsNullOrWhiteSpace(ModName);
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(ModName))
+                return "";
+            return Strict ? $"{ModName} (严格)" : ModName;
+        }
+    }
+
+    /// <summary>
     /// 排序选项
     /// </summary>
     public enum ResultSortOption
@@ -355,7 +382,7 @@ namespace FilterPresetConverter.Models
                 { FilterConditionType.Difficulty, ("难度", FilterValueType.Selection, new List<string> { "Easy", "Normal", "Hard", "Expert", "ExpertPlus" }) },
                 { FilterConditionType.Ne, ("Noodle Extensions", FilterValueType.Boolean, null) },
                 { FilterConditionType.CustomMod, ("包含Mod", FilterValueType.Text, null) },
-                { FilterConditionType.ExcludeCustomMod, ("排除Mod", FilterValueType.Text, null) },
+                { FilterConditionType.ExcludeCustomMod, ("排除Mod", FilterValueType.ExcludeMod, null) },
                 { FilterConditionType.MinUploadedDate, ("上传时间起始", FilterValueType.Date, null) },
                 { FilterConditionType.MaxUploadedDate, ("上传时间截止", FilterValueType.Date, null) },
                 { FilterConditionType.ResultLimit, ("数量限制", FilterValueType.NumberWithSort, new List<string> { "最新上传", "最早上传", "随机" }) },

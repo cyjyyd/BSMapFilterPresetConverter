@@ -172,7 +172,7 @@ public class ConversionTest
             IncludeMode = new EnabledContentSection { Enabled = true, Content = "Standard" },
             IncludeDifficulty = new EnabledContentSection { Enabled = true, Content = "Expert,ExpertPlus" },
             RequiredMods = new EnabledContentSection { Enabled = true, Content = "Chroma" },
-            ExcludeMods = new EnabledContentSection { Enabled = true, Content = "Me,Ne" },
+            ExcludeMods = new EnabledContentSection { Enabled = true, Content = "Me,Ne,CustomMod1" },  // 包含自定义Mod
 
             // 标签
             Tags = new TagsSection
